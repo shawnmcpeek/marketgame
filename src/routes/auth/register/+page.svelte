@@ -31,7 +31,8 @@
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       
       const now = new Date();
-      const endDate = GAME_DURATIONS[gameMode] 
+      const duration = GAME_DURATIONS[gameMode as keyof typeof GAME_DURATIONS];
+      const endDate = duration
         ? new Date(now.getTime() + GAME_DURATIONS[gameMode] * 24 * 60 * 60 * 1000)
         : null;
 
@@ -53,8 +54,8 @@
   }
 </script>
 
-<div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
-  <h2 class="text-2xl font-bold mb-6">Create Account</h2>
+<div class="max-w-md mx-auto bg-gray-700/30 border border-clover-black/20 p-8 rounded-lg shadow-xl">
+  <h2 class="text-2xl font-bold mb-6 text-clover-pink">Create Account</h2>
   
   {#if error}
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -111,8 +112,9 @@
     </div>
     
     <div>
-      <label class="block text-sm font-medium text-gray-700">Game Mode</label>
+      <label for="gameMode" class="block text-sm font-medium text-gray-700">Game Mode</label>
       <select
+        id="gameMode"
         bind:value={gameMode}
         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
       >

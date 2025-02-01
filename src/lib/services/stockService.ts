@@ -7,6 +7,7 @@ export interface StockQuote {
   change: number;
   percentChange: number;
   companyName: string;
+  timestamp?: number;
 }
 
 export interface CachedQuote extends StockQuote {

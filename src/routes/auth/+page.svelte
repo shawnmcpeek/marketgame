@@ -18,7 +18,12 @@
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       // Initialize user data if it doesn't exist
-      await initializeUserData(userCredential.user.uid, userCredential.user.email || email);
+      await initializeUserData(
+        userCredential.user.uid, 
+        userCredential.user.email || email,
+        'standard',  // Default game mode
+        null  // No end date for existing users
+      );
       goto('/dashboard');
     } catch (e) {
       if (e instanceof Error) {
