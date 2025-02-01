@@ -71,8 +71,8 @@
 
       // Update or add to existing holdings
       let updatedStocks = [...userData.stocks];
-      if (!selectedStock) return;
-      const existingStock = updatedStocks.find(s => s.symbol === selectedStock.symbol);
+      // We know selectedStock is not null because of the guard clause at the start of the function
+      const existingStock = updatedStocks.find(s => s.symbol === selectedStock!.symbol);
 
       if (existingStock) {
         // Update existing position with weighted average price

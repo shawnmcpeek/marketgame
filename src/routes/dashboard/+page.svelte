@@ -101,8 +101,7 @@
 
     try {
       const updatedStocks = [...userData.stocks];
-      if (!selectedStock) return;
-      const stockIndex = updatedStocks.findIndex(s => s.symbol === selectedStock.symbol);
+      const stockIndex = updatedStocks.findIndex(s => s.symbol === selectedStock!.symbol);
 
       if (selectedStock.shares === sellQuantity) {
         // Remove the stock if selling all shares
