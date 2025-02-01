@@ -71,7 +71,8 @@
 
       // Update or add to existing holdings
       let updatedStocks = [...userData.stocks];
-      const existingStock = selectedStock ? updatedStocks.find(s => s.symbol === selectedStock.symbol) : undefined;
+      if (!selectedStock) return;
+      const existingStock = updatedStocks.find(s => s.symbol === selectedStock.symbol);
 
       if (existingStock) {
         // Update existing position with weighted average price

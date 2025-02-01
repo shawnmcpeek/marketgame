@@ -33,7 +33,7 @@
       const now = new Date();
       const duration = GAME_DURATIONS[gameMode as keyof typeof GAME_DURATIONS];
       const endDate = duration
-        ? new Date(now.getTime() + GAME_DURATIONS[gameMode] * 24 * 60 * 60 * 1000)
+        ? new Date(now.getTime() + duration * 24 * 60 * 60 * 1000)
         : null;
 
       await initializeUserData(
