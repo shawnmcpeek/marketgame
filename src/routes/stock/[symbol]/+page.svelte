@@ -138,7 +138,13 @@
       <div class="grid grid-cols-2 gap-4 mb-6">
         <div>
           <p class="text-clover-gray">Current Price</p>
-          <p class="text-2xl font-bold">${stockData.price.toFixed(2)}</p>
+          <p class="text-2xl font-bold">
+            {#if loading}
+              <span class="animate-pulse">Loading...</span>
+            {:else}
+              ${stockData.price.toFixed(2)}
+            {/if}
+          </p>
         </div>
         <div>
           <p class="text-clover-gray">Change</p>

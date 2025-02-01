@@ -102,7 +102,12 @@
 
       // Close modal and show success message
       closeBuyModal();
-      // Optionally show a success toast/message
+      // Add success message
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-4 right-4 bg-clover-green/20 border border-clover-green/20 text-clover-pink px-4 py-3 rounded';
+      toast.textContent = `Successfully purchased ${quantity} shares of ${selectedStock.symbol}`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
     } catch (e) {
       purchaseError = 'Error processing purchase';
       console.error('Purchase error:', e);
@@ -114,26 +119,37 @@
   <h1 class="text-3xl font-bold">Search Stocks</h1>
 
   <div class="max-w-xl">
-    <form on:submit|preventDefault={handleSearch} class="flex gap-2">
-      <input
-        type="text"
-        bind:value={searchQuery}
-        placeholder="Enter stock name or symbol..."
-        class="flex-1 rounded-lg bg-gray-600/50 border-clover-black/20 text-white placeholder-gray-400 focus:border-clover-pink focus:ring-clover-pink"
-      />
-      <button
-        type="submit"
-        class="bg-clover-pink text-white px-4 py-2 rounded-lg hover:bg-clover-gray transition-colors disabled:opacity-50"
-        disabled={loading}
-      >
-        {loading ? 'Searching...' : 'Search'}
-      </button>
+    <form on:submit|preventDefault={handleSearch} class="space-y-2">
+      <p class="text-sm text-clover-gray mb-2">
+        Search by company name (e.g., "Disney", "Microsoft") or stock symbol (e.g., "AAPL")
+      </p>
+      <div class="flex gap-2">
+        <input
+          type="text"
+          bind:value={searchQuery}
+          placeholder="Enter company name or symbol..."
+          class="flex-1 rounded-lg bg-gray-600/50 border-clover-black/20 text-white placeholder-gray-400 focus:border-clover-pink focus:ring-clover-pink"
+        />
+        <button
+          type="submit"
+          class="bg-clover-pink text-white px-4 py-2 rounded-lg hover:bg-clover-gray transition-colors disabled:opacity-50"
+          disabled={loading}
+        >
+          {loading ? 'Searching...' : 'Search'}
+        </button>
+      </div>
     </form>
   </div>
 
   {#if error}
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+    <div class="bg-red-900/20 border border-red-500/20 text-red-400 px-4 py-3 rounded">
       {error}
+    </div>
+  {/if}
+
+  {#if searchQuery && !loading && searchResults.length === 0}
+    <div class="bg-gray-700/30 border border-clover-black/20 p-4 rounded-lg">
+      <p class="text-clover-gray">No stocks found matching "{searchQuery}". Try another search term.</p>
     </div>
   {/if}
 
@@ -144,9 +160,12 @@
           <div class="flex justify-between items-center">
             <div>
               <h3 class="font-semibold text-clover-pink">{stock.companyName}</h3>
-              <p class="text-sm text-gray-300">Symbol: {stock.symbol}</p>
+              <p class="text-sm text-clover-gray">Trading as: {stock.symbol}</p>
               <p class="text-sm" class:text-clover-pink={stock.change > 0} class:text-red-400={stock.change < 0}>
-                ${stock.price.toFixed(2)} ({stock.percentChange.toFixed(2)}%)
+                Current Price: ${stock.price.toFixed(2)} 
+                <span class="ml-2">
+                  ({stock.change > 0 ? '+' : ''}{stock.percentChange.toFixed(2)}% today)
+                </span>
               </p>
             </div>
             <div class="flex items-center gap-4">
@@ -190,6 +209,14 @@
               id="quantity"
               bind:value={quantity}
               min="1"
+              max="10000"
+              step="1"
+              on:input={(e) => {
+                const val = parseInt(e.currentTarget.value);
+                if (val < 1) quantity = 1;
+                if (val > 10000) quantity = 10000;
+                if (val % 1 !== 0) quantity = Math.floor(val);
+              }}
               class="mt-1 block w-full rounded-lg bg-gray-800/50 border-clover-black/20 text-white placeholder-gray-400 focus:border-clover-pink focus:ring-clover-pink"
             />
           </div>
