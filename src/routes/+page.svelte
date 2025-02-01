@@ -5,7 +5,7 @@
   <div class="space-y-4">
     <a 
       href="/auth" 
-      class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+      class="inline-block bg-clover-pink text-white px-6 py-2 rounded-lg hover:bg-clover-gray transition-colors"
     >
       Get Started
     </a>

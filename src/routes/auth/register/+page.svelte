@@ -65,14 +65,14 @@
   
   <form class="space-y-4" on:submit={handleRegister}>
     <div>
-      <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+      <label for="name" class="block text-sm font-medium text-clover-gray">Name</label>
       <input
         type="text"
         id="name"
         bind:value={name}
         placeholder="Name"
         required
-        class="mt-1 block w-full rounded-lg bg-gray-800/50 border-clover-black/20 text-white placeholder-gray-400 focus:border-clover-pink focus:ring-clover-pink"
+        class="mt-1 block w-full rounded-lg bg-gray-600/50 border-clover-black/20 text-white placeholder-gray-400 focus:border-clover-pink focus:ring-clover-pink"
       />
     </div>
     
