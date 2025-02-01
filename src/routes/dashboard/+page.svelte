@@ -46,7 +46,12 @@
       const symbols = userData.stocks.map(s => s.symbol);
       for (const symbol of symbols) {
         const quote = await getStockQuote(symbol);
-        currentPrices[symbol] = quote.price;
+        if (quote) {
+          currentPrices[symbol] = quote.price;
+        } else {
+          console.warn(`Could not get price for ${symbol}`);
+          currentPrices[symbol] = 0; // Fallback to 0 for display purposes
+        }
       }
     } catch (e) {
       console.error('Error loading current prices:', e);
