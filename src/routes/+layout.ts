@@ -9,4 +9,7 @@ export const load: LayoutLoad = async ({ url }) => {
   return {
     path
   };
-}; 
+};
+
+export const prerender = false;
+export const ssr = false; 
