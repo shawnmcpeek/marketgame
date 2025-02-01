@@ -69,6 +69,7 @@
       <input
         type="text"
         id="name"
+        name="name"
         bind:value={name}
         placeholder="Name"
         required
@@ -81,6 +82,7 @@
       <input
         type="email"
         id="email"
+        name="email"
         bind:value={email}
         placeholder="Email"
         required
@@ -93,6 +95,7 @@
       <input
         type="password"
         id="password"
+        name="password"
         bind:value={password}
         placeholder="Password"
         required
@@ -115,6 +118,7 @@
       <label for="gameMode" class="block text-sm font-medium text-gray-700">Game Mode</label>
       <select
         id="gameMode"
+        name="gameMode"
         bind:value={gameMode}
         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
       >

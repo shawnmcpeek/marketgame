@@ -126,6 +126,8 @@
       <div class="flex gap-2">
         <input
           type="text"
+          id="searchQuery"
+          name="searchQuery"
           bind:value={searchQuery}
           placeholder="Enter company name or symbol..."
           class="flex-1 rounded-lg bg-gray-600/50 border-clover-black/20 text-white placeholder-gray-400 focus:border-clover-pink focus:ring-clover-pink"
@@ -207,6 +209,7 @@
             <input
               type="number"
               id="quantity"
+              name="quantity"
               bind:value={quantity}
               min="1"
               max="10000"

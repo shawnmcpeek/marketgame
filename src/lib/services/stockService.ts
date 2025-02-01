@@ -41,6 +41,7 @@ export async function searchStocks(query: string): Promise<StockQuote[]> {
     usStocks.map(async (match: any) => {
       try {
         const quote = await getStockQuote(match.symbol);
+        if (!quote) return null;
         return {
           ...quote,
           companyName: match.description
@@ -57,7 +58,7 @@ export async function searchStocks(query: string): Promise<StockQuote[]> {
   return quotes.filter((q): q is StockQuote => q !== null);
 }
 
-export async function getStockQuote(symbol: string): Promise<StockQuote> {
+export async function getStockQuote(symbol: string): Promise<StockQuote | null> {
   // Check cache first
   const cached = quoteCache[symbol];
   const now = Date.now();

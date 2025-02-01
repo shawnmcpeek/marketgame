@@ -50,6 +50,7 @@
       <input
         type="email"
         id="email"
+        name="email"
         bind:value={email}
         required
         placeholder="Email"
@@ -62,6 +63,7 @@
       <input
         type="password"
         id="password"
+        name="password"
         bind:value={password}
         required
         placeholder="Password"
