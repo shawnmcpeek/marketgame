@@ -13,7 +13,11 @@ jobs:
           node-version: '20'
       - name: Create .env file
         run: |
-          echo "${{ secrets.ENV_FILE }}" > .env
+          echo "${{ secrets.ENV_FILE }}" | tr -d '\r' > .env
+      - name: Debug env file (temporary)
+        run: |
+          echo "Checking env file contents:"
+          cat .env
       - run: npm ci
       - run: npm run check
       - run: npm run build
