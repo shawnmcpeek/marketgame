@@ -21,18 +21,24 @@ export async function searchStocks(query: string): Promise<StockQuote[]> {
   console.log('Searching for:', query);
   
   const response = await fetch(
-    `${BASE_URL}/search?q=${encodeURIComponent(query)}&token=${API_KEY}`
+    `${BASE_URL}/search?q=${encodeURIComponent(query)}&exchange=US&token=${API_KEY}`
   );
   const data = await response.json();
   
+  console.log('Search response:', data);
+  
   if (!data.result) return [];
   
-  // Filter for US stocks only (no dots in symbol)
-  const usStocks = data.result.filter((match: any) => !match.symbol.includes('.'));
+  // Filter for common stocks (exclude warrants, ETFs, etc)
+  const usStocks = data.result
+    .filter((match: any) => !match.symbol.includes('.') && match.type === 'Common Stock')
+    .slice(0, 5);  // Limit to top 5 results
+  
+  console.log('Filtered US stocks:', usStocks);
   
   // Get quotes for filtered results
   const quotes = await Promise.all(
-    usStocks.slice(0, 5).map(async (match: any) => {
+    usStocks.map(async (match: any) => {
       try {
         const quote = await getStockQuote(match.symbol);
         return {
@@ -45,6 +51,8 @@ export async function searchStocks(query: string): Promise<StockQuote[]> {
       }
     })
   );
+
+  console.log('Final quotes:', quotes);
 
   return quotes.filter((q): q is StockQuote => q !== null);
 }
@@ -76,12 +84,6 @@ export async function getStockQuote(symbol: string): Promise<StockQuote> {
     return stockQuote;
   }
   
-  return {
-    symbol,
-    price: 0,
-    change: 0,
-    percentChange: 0,
-    companyName: symbol,
-    timestamp: now
-  };
+  // If we can't get a price, return null so it's filtered out
+  return null;
 } 
