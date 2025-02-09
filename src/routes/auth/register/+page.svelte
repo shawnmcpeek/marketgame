@@ -141,5 +141,8 @@
       Already have an account? 
       <a href="/auth" class="text-blue-600 hover:text-blue-700">Login</a>
     </p>
+    <p class="mt-4 text-xs text-clover-gray/80 italic">
+      Market Game will never sell or share your personal data.
+    </p>
   </div>
 </div> 

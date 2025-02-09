@@ -63,6 +63,10 @@
 <div class="max-w-2xl mx-auto space-y-6">
   <h1 class="text-3xl font-bold">Profile</h1>
 
+  <div class="text-sm text-clover-gray/80 italic mb-6">
+    Market Game will never sell or share your personal data.
+  </div>
+
   {#if loading}
     <div class="flex justify-center">
       <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-clover-pink"></div>
