@@ -120,17 +120,17 @@
 
   <div class="max-w-xl">
     <form on:submit|preventDefault={handleSearch} class="space-y-2">
-      <p class="text-sm text-clover-gray mb-2">
+      <p class="text-sm text-clover-gray mb-2 font-display">
         Search by company name (e.g., "Disney", "Microsoft") or stock symbol (e.g., "AAPL")
       </p>
-      <div class="flex gap-2">
+      <div class="flex gap-4 mb-8">
         <input
           type="text"
           id="searchQuery"
           name="searchQuery"
           bind:value={searchQuery}
           placeholder="Enter company name or symbol..."
-          class="flex-1 rounded-lg bg-gray-600/50 border-clover-black/20 text-white placeholder-gray-400 focus:border-clover-pink focus:ring-clover-pink"
+          class="flex-1 rounded-lg bg-gray-600/50 border-clover-black/20 text-white placeholder-gray-400 focus:border-clover-pink focus:ring-clover-pink font-display"
         />
         <button
           type="submit"
@@ -164,9 +164,9 @@
               <h3 class="font-semibold text-clover-pink">{stock.companyName}</h3>
               <p class="text-sm text-clover-gray">Trading as: {stock.symbol}</p>
               <p class="text-sm" class:text-clover-pink={stock.change > 0} class:text-red-400={stock.change < 0}>
-                Current Price: ${stock.price.toFixed(2)} 
+                Current Price: <span class="font-numeric">${stock.price.toFixed(2)}</span>
                 <span class="ml-2">
-                  ({stock.change > 0 ? '+' : ''}{stock.percentChange.toFixed(2)}% today)
+                  (<span class="font-numeric">{stock.change > 0 ? '+' : ''}{stock.percentChange.toFixed(2)}</span>%)
                 </span>
               </p>
             </div>
@@ -199,7 +199,7 @@
         <div class="space-y-4">
           <div>
             <p class="text-clover-gray">Current Price</p>
-            <p class="text-xl font-bold">${selectedStock.price.toFixed(2)}</p>
+            <p class="text-xl font-bold font-numeric">${selectedStock.price.toFixed(2)}</p>
           </div>
 
           <div>
@@ -226,7 +226,7 @@
 
           <div class="border-t pt-4">
             <p class="text-gray-600">Total Cost</p>
-            <p class="text-xl font-bold">${totalCost.toFixed(2)}</p>
+            <p class="text-xl font-bold font-numeric">${totalCost.toFixed(2)}</p>
           </div>
 
           {#if purchaseError}

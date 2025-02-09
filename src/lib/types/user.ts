@@ -6,6 +6,16 @@ export interface UserStock {
 
 export type GameMode = 'quick' | 'standard' | 'infinite';
 
+export interface GameHistory {
+  endDate: string;
+  startingBalance: number;
+  endingBalance: number;
+  gainLoss: number;
+  percentageChange: number;
+  gameMode: GameMode;
+  duration: number; // in days
+}
+
 export interface UserData {
   email: string;
   name: string | null;
@@ -15,4 +25,5 @@ export interface UserData {
   createdAt: string;
   gameMode: GameMode;
   gameEndDate: string | null;  // null for infinite mode
+  gameHistory: GameHistory[];
 } 

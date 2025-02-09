@@ -31,7 +31,12 @@ export async function searchStocks(query: string): Promise<StockQuote[]> {
   
   // Filter for common stocks (exclude warrants, ETFs, etc)
   const usStocks = data.result
-    .filter((match: any) => !match.symbol.includes('.') && match.type === 'Common Stock')
+    .filter((match: any) => {
+      // Allow common variations like BRK.B but filter out complex instruments
+      const isValidSymbol = match.symbol.split('.').length <= 2;
+      return (isValidSymbol && 
+              (match.type === 'Common Stock' || match.type === 'Stock' || match.type === 'ADR'));
+    })
     .slice(0, 5);  // Limit to top 5 results
   
   console.log('Filtered US stocks:', usStocks);

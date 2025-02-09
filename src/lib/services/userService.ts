@@ -2,7 +2,7 @@ import { db } from '$lib/firebase/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import type { UserData, GameMode } from '$lib/types/user';
 
-const INITIAL_BALANCE = 10000;
+export const INITIAL_BALANCE = 10000;
 
 export async function initializeUserData(
   userId: string, 
