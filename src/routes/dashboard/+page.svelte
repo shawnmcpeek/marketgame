@@ -4,7 +4,8 @@
   import { db } from '$lib/firebase/firebase';
   import { doc, getDoc, updateDoc, addDoc, collection } from 'firebase/firestore';
   import { getStockQuote } from '$lib/services/stockService';
-  import type { UserStock, UserData, GameHistory, CompletedGame } from '$lib/types/user';
+  import type { UserStock, UserData, GameMode } from '$lib/types/user';
+  import type { CompletedGame } from '$lib/types/game';
   import { formatTimeRemaining } from '$lib/utils/time';
   import { INITIAL_BALANCE } from '$lib/services/userService';
 
@@ -373,11 +374,11 @@
     <div class="bg-gray-800 p-6 rounded-lg shadow-xl max-w-md w-full">
       <h2 class="text-2xl font-bold mb-4 text-clover-pink">Game Complete!</h2>
       <p class="mb-4">
-        Your final balance: <span class="font-numeric">${(userData?.balance + calculateTotalValue()).toLocaleString()}</span>
+        Your final balance: <span class="font-numeric">${(userData?.balance ?? 0 + calculateTotalValue()).toLocaleString()}</span>
         <br>
-        Total {userData?.balance + calculateTotalValue() > INITIAL_BALANCE ? 'Gain' : 'Loss'}: 
-        <span class="font-numeric">${Math.abs(userData?.balance + calculateTotalValue() - INITIAL_BALANCE).toLocaleString()}</span>
-        (<span class="font-numeric">{((userData?.balance + calculateTotalValue() - INITIAL_BALANCE) / INITIAL_BALANCE * 100).toFixed(2)}</span>%)
+        Total {(userData?.balance ?? 0) + calculateTotalValue() > INITIAL_BALANCE ? 'Gain' : 'Loss'}: 
+        <span class="font-numeric">${Math.abs((userData?.balance ?? 0) + calculateTotalValue() - INITIAL_BALANCE).toLocaleString()}</span>
+        (<span class="font-numeric">${(((userData?.balance ?? 0) + calculateTotalValue() - INITIAL_BALANCE) / INITIAL_BALANCE * 100).toFixed(2)}</span>%)
       </p>
       
       <div class="mb-4">

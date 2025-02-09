@@ -1,3 +1,5 @@
+import type { GameMode } from './user';
+
 export interface CompletedGame {
   uid: string;
   endDate: string;

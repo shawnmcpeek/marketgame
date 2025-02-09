@@ -25,5 +25,4 @@ export interface UserData {
   createdAt: string;
   gameMode: GameMode;
   gameEndDate: string | null;  // null for infinite mode
-  gameHistory: GameHistory[];
 } 
